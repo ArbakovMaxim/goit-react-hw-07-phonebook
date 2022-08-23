@@ -21,7 +21,7 @@ export const Contacts = filter => {
 
   const filterList = () => {
     const normalValue = filter.toLowerCase().trim();
-    return data.filter(contact =>
+    return data?.filter(contact =>
       contact.name.toLowerCase().includes(normalValue)
     );
   };
