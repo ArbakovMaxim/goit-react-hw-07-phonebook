@@ -5,7 +5,7 @@ let schema = yup.object().shape({
   name: yup.string().required(),
 });
 
-export const Filter = (filter, setFilter) => {
+export const Filter = ({ filter, setFilter }) => {
   return (
     <div>
       <TitleBlock>Find contacts by name</TitleBlock>

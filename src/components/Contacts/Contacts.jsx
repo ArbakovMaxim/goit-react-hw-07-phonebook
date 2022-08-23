@@ -2,7 +2,6 @@ import {
   useGetContactsQuery,
   useDeleteContactsMutation,
 } from 'redux/phoneBookApi';
-
 import {
   ContWrapper,
   ContList,
@@ -14,10 +13,21 @@ export const Contacts = filter => {
   const { data, error } = useGetContactsQuery();
   const [deleteContacts] = useDeleteContactsMutation();
 
-  /*   const contactsFiltered = data?.filter(contact =>
+  /*   const contactsFiltered = data?.map(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
-  console.log(contactsFiltered); */
+
+  console.log(`contactsFiltered: ${contactsFiltered}`); */
+
+  const filterList = () => {
+    const normalValue = filter.toLowerCase().trim();
+    return data.filter(contact =>
+      contact.name.toLowerCase().includes(normalValue)
+    );
+  };
+
+  const contactsList = filterList();
+  console.log(contactsList);
 
   return (
     <ContWrapper>
