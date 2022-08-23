@@ -19,15 +19,16 @@ export const Contacts = filter => {
 
   console.log(`contactsFiltered: ${contactsFiltered}`); */
 
-  const filterList = () => {
+  /*   const filterList = () => {
+    console.log(filter);
     const normalValue = filter.toLowerCase().trim();
     return data?.filter(contact =>
       contact.name.toLowerCase().includes(normalValue)
     );
-  };
+  }; */
 
-  const contactsList = filterList();
-  console.log(contactsList);
+  /*   const contactsList = filterList(); */
+  /*   console.log(contactsList); */
 
   return (
     <ContWrapper>

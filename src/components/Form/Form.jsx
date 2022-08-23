@@ -11,7 +11,7 @@ import { useCreateContactsMutation } from 'redux/phoneBookApi';
 
 export const FormName = () => {
   const [createContact] = useCreateContactsMutation();
-  const hendleSubmit = (values, { resetForm }) => {
+  const hendleSubmitValue = (values, { resetForm }) => {
     const newContact = {
       name: values.name,
       phone: values.phone,
@@ -47,7 +47,7 @@ export const FormName = () => {
       <Formik
         initialValues={{ name: '', phone: '' }}
         validationSchema={schema}
-        onSubmit={hendleSubmit}
+        onSubmit={hendleSubmitValue}
       >
         <Form>
           <TitleBlock>Name</TitleBlock>
