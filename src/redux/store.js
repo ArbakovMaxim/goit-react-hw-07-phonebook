@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { contactsApi } from './phoneBookApi';
-/* import { setupListeners } from '@reduxjs/toolkit/query'; */
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +11,3 @@ export const store = configureStore({
     contactsApi.middleware,
   ],
 });
-
-/* setupListeners(store.dispatch); */

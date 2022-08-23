@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-import { nanoid } from 'nanoid';
 import { Form, Formik } from 'formik';
 import {
   ButtonSubmit,
@@ -8,24 +7,16 @@ import {
   Input,
   Eror,
 } from './Form.styled';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact, getContacts } from 'redux/contacts';
+import { useCreateContactsMutation } from 'redux/phoneBookApi';
 
 export const FormName = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-
+  const [createContact] = useCreateContactsMutation();
   const hendleSubmit = (values, { resetForm }) => {
     const newContact = {
       name: values.name,
-      number: values.number,
-      id: nanoid(),
+      phone: values.phone,
     };
-    contacts.find(
-      contact => contact.name.toLowerCase() === values.name.toLowerCase()
-    )
-      ? alert(`${values.name} вже в контактах`)
-      : dispatch(addContact(newContact));
+    createContact(newContact);
     resetForm();
   };
 
@@ -54,7 +45,7 @@ export const FormName = () => {
   return (
     <WrapperForm>
       <Formik
-        initialValues={{ name: '', number: '' }}
+        initialValues={{ name: '', phone: '' }}
         validationSchema={schema}
         onSubmit={hendleSubmit}
       >
@@ -63,8 +54,8 @@ export const FormName = () => {
           <Input type="text" name="name" />
           <Eror name="name" component="div" />
           <TitleBlock>Number</TitleBlock>
-          <Input type="tel" name="number" />
-          <Eror name="number" component="div" />
+          <Input type="tel" name="phone" />
+          <Eror name="phone" component="div" />
           <ButtonSubmit type="submit">Add contact</ButtonSubmit>
         </Form>
       </Formik>
