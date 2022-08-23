@@ -1,11 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import contactsDefault from '../mock/data.json';
-import storage from 'redux-persist/lib/storage';
-import { persistReducer } from 'redux-persist';
-import { LS_Key } from 'Constants/storageConstants';
 
 const initialState = {
-  items: contactsDefault,
+  items: '',
   filter: '',
 };
 
@@ -25,17 +21,6 @@ const contactsSlice = createSlice({
     },
   },
 });
-
-const persistConfig = {
-  key: LS_Key,
-  storage,
-  blacklist: ['filter'],
-};
-
-export const persisteContactReducer = persistReducer(
-  persistConfig,
-  contactsSlice.reducer
-);
 
 export const getContacts = state => state.contacts.items;
 export const getFilter = state => state.contacts.filter;
