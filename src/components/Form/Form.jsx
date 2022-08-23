@@ -7,16 +7,22 @@ import {
   Input,
   Eror,
 } from './Form.styled';
-import { useCreateContactsMutation } from 'redux/phoneBookApi';
+import {
+  useCreateContactsMutation,
+  useGetContactsQuery,
+} from 'redux/phoneBookApi';
 
 export const FormName = () => {
   const [createContact] = useCreateContactsMutation();
-  const hendleSubmitValue = (values, { resetForm }) => {
-    const newContact = {
-      name: values.name,
-      phone: values.phone,
-    };
-    createContact(newContact);
+  const { data } = useGetContactsQuery();
+
+  const hendleSubmit = (values, { resetForm }) => {
+    data.some(contact => contact.name === values.name)
+      ? alert(`${values.name} is already in contacts`)
+      : createContact({
+          name: values.name,
+          phone: values.phone,
+        });
     resetForm();
   };
 
@@ -47,7 +53,7 @@ export const FormName = () => {
       <Formik
         initialValues={{ name: '', phone: '' }}
         validationSchema={schema}
-        onSubmit={hendleSubmitValue}
+        onSubmit={hendleSubmit}
       >
         <Form>
           <TitleBlock>Name</TitleBlock>
