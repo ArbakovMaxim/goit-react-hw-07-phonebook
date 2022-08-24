@@ -12,7 +12,8 @@ import {
 
 export const Contacts = ({ filter }) => {
   const { data, error } = useGetContactsQuery();
-  const [deleteContacts] = useDeleteContactsMutation();
+  const [deleteContacts, result] = useDeleteContactsMutation();
+  console.log(result);
 
   const filterList = () => {
     const normalValue = filter.toLowerCase().trim();
