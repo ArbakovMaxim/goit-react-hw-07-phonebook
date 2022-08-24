@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import {
   useGetContactsQuery,
   useDeleteContactsMutation,
@@ -24,6 +25,7 @@ export const Contacts = ({ filter }) => {
 
   return (
     <ContWrapper>
+      {error && toast(`${error.error} reload the page`)}
       <ContList>
         {contactsList &&
           contactsList.map(contacts => {
@@ -34,6 +36,7 @@ export const Contacts = ({ filter }) => {
                   type="button"
                   onClick={() => {
                     deleteContacts(contacts.id);
+                    toast(`${contacts.name} removed from contacts`);
                   }}
                 >
                   Delete
@@ -41,7 +44,6 @@ export const Contacts = ({ filter }) => {
               </ContItem>
             );
           })}
-        {error && <p>{error.error}</p>}
       </ContList>
     </ContWrapper>
   );

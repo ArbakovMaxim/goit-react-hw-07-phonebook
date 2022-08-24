@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Container } from 'components/ui/Container.styled';
 import { Contacts } from './components/Contacts/Contacts';
 import { FormName } from './components/Form/Form';
@@ -17,6 +19,7 @@ export const App = () => {
         <Filter filter={filter} setFilter={setFilter} />
         <Contacts filter={filter} />
       </Section>
+      <ToastContainer />
     </Container>
   );
 };

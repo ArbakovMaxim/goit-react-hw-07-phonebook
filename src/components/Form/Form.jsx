@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
 import { Form, Formik } from 'formik';
 import {
   ButtonSubmit,
@@ -17,12 +18,15 @@ export const FormName = () => {
   const { data } = useGetContactsQuery();
 
   const hendleSubmit = (values, { resetForm }) => {
-    data.some(contact => contact.name === values.name)
-      ? alert(`${values.name} is already in contacts`)
-      : createContact({
-          name: values.name,
-          phone: values.number,
-        });
+    if (data.some(contact => contact.name === values.name)) {
+      toast(`${values.name} is already in contacts`);
+    } else {
+      createContact({
+        name: values.name,
+        phone: values.number,
+      });
+      toast(`${values.name} added to contact`);
+    }
     resetForm();
   };
 
