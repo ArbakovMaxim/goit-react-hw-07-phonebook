@@ -13,7 +13,6 @@ import {
 export const Contacts = ({ filter }) => {
   const { data, error } = useGetContactsQuery();
   const [deleteContacts, result] = useDeleteContactsMutation();
-  console.log(result);
 
   const filterList = () => {
     const normalValue = filter.toLowerCase().trim();
@@ -27,29 +26,28 @@ export const Contacts = ({ filter }) => {
   return (
     <ContWrapper>
       {result.isError &&
-        toast(`${result.error.status} ${result.error.data} reload the page`)}
+        toast(`${result.error.status} ${result.error.data} 
+        The contact has already been deleted`)}
       {error && toast(`${error.error} reload the page`)}
-      {error || result.isError || (
-        <ContList>
-          {contactsList &&
-            contactsList.map(contacts => {
-              return (
-                <ContItem key={contacts.id}>
-                  {contacts.name}: {contacts.phone}
-                  <BtnDeleteContact
-                    type="button"
-                    onClick={() => {
-                      deleteContacts(contacts.id);
-                      toast(`${contacts.name} removed from contacts`);
-                    }}
-                  >
-                    Delete
-                  </BtnDeleteContact>
-                </ContItem>
-              );
-            })}
-        </ContList>
-      )}
+      <ContList>
+        {contactsList &&
+          contactsList.map(contacts => {
+            return (
+              <ContItem key={contacts.id}>
+                {contacts.name}: {contacts.phone}
+                <BtnDeleteContact
+                  type="button"
+                  onClick={() => {
+                    deleteContacts(contacts.id);
+                    toast(`${contacts.name} removed from contacts`);
+                  }}
+                >
+                  Delete
+                </BtnDeleteContact>
+              </ContItem>
+            );
+          })}
+      </ContList>
     </ContWrapper>
   );
 };
