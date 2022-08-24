@@ -26,9 +26,13 @@ export const Contacts = ({ filter }) => {
 
   return (
     <ContWrapper>
+      {result.isError &&
+        toast(`${result.error.status} ${result.error.data} reload the page`)}
       {error && toast(`${error.error} reload the page`)}
       <ContList>
         {contactsList &&
+          error &&
+          result.isError &&
           contactsList.map(contacts => {
             return (
               <ContItem key={contacts.id}>
@@ -37,11 +41,7 @@ export const Contacts = ({ filter }) => {
                   type="button"
                   onClick={() => {
                     deleteContacts(contacts.id);
-                    if (result.isError) {
-                      toast(`${result.isError} reload the page`);
-                    } else {
-                      toast(`${contacts.name} removed from contacts`);
-                    }
+                    toast(`${contacts.name} removed from contacts`);
                   }}
                 >
                   Delete
