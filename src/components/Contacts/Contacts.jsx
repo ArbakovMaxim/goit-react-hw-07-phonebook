@@ -1,8 +1,11 @@
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { getFilter } from 'redux/filterContacts';
 import {
   useGetContactsQuery,
   useDeleteContactsMutation,
 } from 'redux/phoneBookApi';
+
 import {
   ContWrapper,
   ContList,
@@ -10,18 +13,20 @@ import {
   BtnDeleteContact,
 } from './Contacts.styled';
 
-export const Contacts = ({ filter }) => {
+export const Contacts = () => {
   const { data, error } = useGetContactsQuery();
   const [deleteContacts, result] = useDeleteContactsMutation();
+  const filter = useSelector(getFilter);
 
-  const filterList = () => {
-    const normalValue = filter.toLowerCase().trim();
-    return data?.filter(contact =>
-      contact.name.toLowerCase().includes(normalValue)
-    );
+  const normalValue = filter.toLowerCase().trim();
+  const contactsList = data?.filter(contact =>
+    contact.name.toLowerCase().includes(normalValue)
+  );
+
+  const onDeleteContact = (id, name) => {
+    deleteContacts(id);
+    toast.success(`Contact ${name} has been deleted`);
   };
-
-  const contactsList = filterList();
 
   return (
     <ContWrapper>
@@ -38,8 +43,7 @@ export const Contacts = ({ filter }) => {
                 <BtnDeleteContact
                   type="button"
                   onClick={() => {
-                    deleteContacts(contacts.id);
-                    toast(`${contacts.name} removed from contacts`);
+                    onDeleteContact(contacts.id, contacts.name);
                   }}
                 >
                   Delete

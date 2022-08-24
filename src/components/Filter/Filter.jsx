@@ -1,11 +1,19 @@
 import * as yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { TitleBlock } from 'components/Form/Form.styled';
+import { changeFilter, getFilter } from 'redux/filterContacts';
 
 let schema = yup.object().shape({
   name: yup.string().required(),
 });
 
-export const Filter = ({ filter, setFilter }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector(getFilter);
+
+  const onChangeFilter = event => {
+    dispatch(changeFilter(event.target.value));
+  };
   return (
     <div>
       <TitleBlock>Find contacts by name</TitleBlock>
@@ -15,7 +23,7 @@ export const Filter = ({ filter, setFilter }) => {
         name="filter"
         pattern={schema}
         title="only sting"
-        onChange={e => setFilter(e.target.value)}
+        onChange={onChangeFilter}
       />
     </div>
   );
