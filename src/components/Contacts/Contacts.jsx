@@ -29,27 +29,27 @@ export const Contacts = ({ filter }) => {
       {result.isError &&
         toast(`${result.error.status} ${result.error.data} reload the page`)}
       {error && toast(`${error.error} reload the page`)}
-      <ContList>
-        {contactsList &&
-          error &&
-          result.isError &&
-          contactsList.map(contacts => {
-            return (
-              <ContItem key={contacts.id}>
-                {contacts.name}: {contacts.phone}
-                <BtnDeleteContact
-                  type="button"
-                  onClick={() => {
-                    deleteContacts(contacts.id);
-                    toast(`${contacts.name} removed from contacts`);
-                  }}
-                >
-                  Delete
-                </BtnDeleteContact>
-              </ContItem>
-            );
-          })}
-      </ContList>
+      {error || result.isError || (
+        <ContList>
+          {contactsList &&
+            contactsList.map(contacts => {
+              return (
+                <ContItem key={contacts.id}>
+                  {contacts.name}: {contacts.phone}
+                  <BtnDeleteContact
+                    type="button"
+                    onClick={() => {
+                      deleteContacts(contacts.id);
+                      toast(`${contacts.name} removed from contacts`);
+                    }}
+                  >
+                    Delete
+                  </BtnDeleteContact>
+                </ContItem>
+              );
+            })}
+        </ContList>
+      )}
     </ContWrapper>
   );
 };
