@@ -26,6 +26,7 @@ export const Contacts = ({ filter }) => {
 
   return (
     <ContWrapper>
+      {result.isError && toast(`${result.isError} reload the page`)}
       {error && toast(`${error.error} reload the page`)}
       <ContList>
         {contactsList &&
