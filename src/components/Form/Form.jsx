@@ -21,7 +21,7 @@ export const FormName = () => {
       ? alert(`${values.name} is already in contacts`)
       : createContact({
           name: values.name,
-          phone: values.phone,
+          phone: values.number,
         });
     resetForm();
   };
@@ -51,7 +51,7 @@ export const FormName = () => {
   return (
     <WrapperForm>
       <Formik
-        initialValues={{ name: '', phone: '' }}
+        initialValues={{ name: '', number: '' }}
         validationSchema={schema}
         onSubmit={hendleSubmit}
       >
@@ -60,8 +60,8 @@ export const FormName = () => {
           <Input type="text" name="name" />
           <Eror name="name" component="div" />
           <TitleBlock>Number</TitleBlock>
-          <Input type="tel" name="phone" />
-          <Eror name="phone" component="div" />
+          <Input type="tel" name="number" />
+          <Eror name="number" component="div" />
           <ButtonSubmit type="submit">Add contact</ButtonSubmit>
         </Form>
       </Formik>
