@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getFilter } from 'redux/filterContacts';
@@ -18,10 +19,19 @@ export const Contacts = () => {
   const [deleteContacts, result] = useDeleteContactsMutation();
   const filter = useSelector(getFilter);
 
-  const normalValue = filter.toLowerCase().trim();
   const contactsList = data?.filter(contact =>
-    contact.name.toLowerCase().includes(normalValue)
+    contact.name.toLowerCase().includes(filter.toLowerCase().trim())
   );
+
+  useEffect(() => {
+    if (result.isError) {
+      toast(`${result.error.status} ${result.error.data} 
+        The contact has already been deleted`);
+    }
+    if (error) {
+      toast(`${error.error} reload the page`);
+    }
+  }, [result, error]);
 
   const onDeleteContact = (id, name) => {
     deleteContacts(id);
@@ -30,10 +40,6 @@ export const Contacts = () => {
 
   return (
     <ContWrapper>
-      {result.isError &&
-        toast(`${result.error.status} ${result.error.data} 
-        The contact has already been deleted`)}
-      {error && toast(`${error.error} reload the page`)}
       <ContList>
         {contactsList &&
           contactsList.map(contacts => {
