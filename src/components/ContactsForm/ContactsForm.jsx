@@ -7,13 +7,13 @@ import {
   WrapperForm,
   Input,
   Eror,
-} from './Form.styled';
+} from './ContactsForm.styled';
 import {
   useCreateContactsMutation,
   useGetContactsQuery,
 } from 'redux/phoneBookApi';
 
-export const FormName = () => {
+export const ContactsForm = () => {
   const [createContact] = useCreateContactsMutation();
   const { data } = useGetContactsQuery();
 

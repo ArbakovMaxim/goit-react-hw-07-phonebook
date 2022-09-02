@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getFilter } from 'redux/filterContacts';
+import { getFilter } from 'redux/phoneBookApi';
 import {
   useGetContactsQuery,
   useDeleteContactsMutation,

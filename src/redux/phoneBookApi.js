@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { combineReducers, createSlice } from '@reduxjs/toolkit';
 
 export const contactsApi = createApi({
   reducerPath: 'contacts',
@@ -37,3 +38,31 @@ export const {
   useDeleteContactsMutation,
   useCreateContactsMutation,
 } = contactsApi;
+
+const contactsSlice = createSlice({
+  name: 'filterContacts',
+  initialState: {
+    filter: '',
+  },
+
+  reducers: {
+    changeFilter(state, actions) {
+      state.filter = actions.payload;
+    },
+  },
+});
+
+export const { changeFilter } = contactsSlice.actions;
+
+// Selectors
+
+export const getFilter = state => state.filterContacts.filter;
+
+// combineReducers
+
+const combiReducer = combineReducers({
+  [contactsSlice.name]: contactsSlice.reducer,
+  [contactsApi.reducerPath]: contactsApi.reducer,
+});
+
+export default combiReducer;
